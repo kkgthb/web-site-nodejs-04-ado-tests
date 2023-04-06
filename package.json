@@ -12,6 +12,17 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "./jest_unit_test_results",
+          "outputName": "yay-for-junit-formatted-test-results.xml",
+          "suiteName": "I really love testing"
+        }
+      ]
     ]
   },
   "dependencies": {
@@ -20,6 +31,7 @@
   "devDependencies": {
     "cross-env": "latest",
     "jest": "latest",
+    "jest-junit": "latest",
     "shx": "latest",
     "supertest": "latest"
   }

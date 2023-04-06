@@ -1,0 +1,51 @@
+name: $(Build.Repository.Name)$(Date:.yyyyMMdd)$(Rev:.r)
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+- script: npm install
+  displayName: 'Install node module dependencies from NPM'
+
+- script: npm run test
+  displayName: 'Does source code pass its own Jest unit tests?'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Jest unit test results to ADO dashboard'
+  condition: succeededOrFailed() # We want to see both test passes and test failures in our results dashboard.
+  inputs:
+    testResultsFormat: JUnit
+    testResultsFiles: './jest_unit_test_results/yay-for-junit-formatted-test-results.xml'
+    testRunTitle: 'Jest npm-run-test unit test results'
+
+# To be quite honest, I'm a little surprised that the steps below this comment 
+# don't need to be explicitly told 
+# to be skipped if "npm run test" failed.
+# I would have expected that since "PublishTestResults" ran with a "succeededOrFailed()" condition, 
+# the "PublishTestResults" step's execution might look like a "passing step" and allow the build to proceed.  
+# Luckily, Azure DevOps Pipelines seems to be smarter than that.
+
+- script: npm run build
+  displayName: 'Build source code into a runtime'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './dist'
+    Contents: '**/*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy runtime into root of build-artifact staging directory'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathToPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'MyBuiltWebsite'
+  displayName: 'Publish build-artifact from staging directory to named artifact'
