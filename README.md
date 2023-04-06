@@ -1,7 +1,5 @@
 # A tiny _well-tested_ Azure DevOps build pipeline
 
-# Your first Azure DevOps build pipeline
-
 (Accompanies associated blog post on Katie Kodes "[Failing Azure DevOps Pipeline builds if unit tests fail](https://katiekodes.com/ado-fail-unit-test/)".)
 
 ---
