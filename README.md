@@ -1,6 +1,8 @@
 # A tiny _well-tested_ Azure DevOps build pipeline
 
-(Accompanies associated blog post on Katie Kodes "[Failing Azure DevOps Pipeline builds if unit tests fail](https://katiekodes.com/ado-fail-unit-test/)".)
+Accompanies 2 associated blog post on Katie Kodes:
+1. "[Failing Azure DevOps Pipeline builds if unit tests fail](https://katiekodes.com/ado-fail-unit-test/)"
+2. "[Deploying a built webapp onto Azure App Service with ADO Release Pipelines](https://katiekodes.com/deploy-to-azure-app-service-with-ado/)"
 
 ---
 
@@ -97,6 +99,12 @@ Repeat the steps from the previous article's "[Running the pipeline by editing c
 Edit the contents of line 6 of the file at `/src/web/server.js` and replace the word "**World**" with the word "**Goodbye**" to match the unit test you updated earlier.
 
 Then repeat the steps from the previous article's "[Validating the pipeline ran correctly](https://katiekodes.com/ado-build-hello-world-from-git/#validating-the-pipeline-ran-correctly)" section.  Once the pipeline finishesrunning, congratulate yourself that once again, your source code successfully builds into a webserver runtime "artifact" and that all your ADO Test Runs result dashboards are colored green.
+
+---
+
+## Deploying this codebase to live websites
+
+See "[Deploying a built webapp onto Azure App Service with ADO Release Pipelines](https://katiekodes.com/deploy-to-azure-app-service-with-ado/)" for instructions on how to add an Azure DevOps "classic" "release" Pipeline to your copy of this codebase, so that you can see "**Hello World**" on a real web site hosted in Azure's cloud.
 
 ---
 
